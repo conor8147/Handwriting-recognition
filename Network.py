@@ -39,7 +39,7 @@ class Network(object):
            learning rate
         """
         # preallocate arrays for nabla_b and nabla_w
-        x, y = zip(mini_batch)
+        x, y = zip(*mini_batch)
         x = np.hstack(x)
         y = np.hstack(y)
         nabla_b, nabla_w = self.backprop(x, y)
