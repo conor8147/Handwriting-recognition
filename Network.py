@@ -1,13 +1,9 @@
-
-# Standard library
 import random
-
-# Third-party libraries
 import numpy as np
 
 class Network(object):
 	
-    def __init(self, sizes):
+    def __init__(self, sizes):
         self.sizes = sizes
         self.num_layers = len(sizes)
         # typically, use y to represent layer, x to represent node in layer
@@ -15,7 +11,7 @@ class Network(object):
         self.weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
     
     def feedforward(self, a):
-        """retturn output of network when input layer is set to a (array)"""
+        """return output of network when input layer is set to a (array)"""
         for b, w in zip(self.biases, self.weights):
             a = sigmoid(np.dot(w, a) + b)
         return a
@@ -79,11 +75,11 @@ class Network(object):
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
         for l in range(2, self.num_layers):
-            z = zs[-1]
+            z = zs[-l]
             sp = sigmoid_prime(z)
             delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
-            nabla_b[-1] = delta
-            nabla_w[-1] = np.dot(delta, activations[-l-1].transpose())
+            nabla_b[-l] = delta
+            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
         return nabla_b, nabla_w
     
     def evaluate(self, test_data):
